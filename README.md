@@ -1,2 +1,2 @@
 # Sean-s-kennel
-Personal Website.For fun and for ablitity
+Personal Website.For fun and for ability
