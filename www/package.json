@@ -1,19 +1,37 @@
 {
-  "name": "webroot",
-  "version": "0.0.0",
+  "name": "Sean_s_kennel",
+  "version": "0.0.1",
+  "description": "Add code from the React tutorial.",
   "private": true,
+  "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "body-parser": "*",
+    "body-parser": "^1.4.3",
     "cookie-parser": "*",
     "debug": "*",
-    "express": "*",
+    "express": "^4.4.5",
     "morgan": "*",
     "serve-favicon": "*",
     "node-jsx" : "*",
     "react" : "*",
     "express-react-views" : "*"
+  },
+  "devDependencies": {},
+  "author": "SeanLiang",
+  "keywords": [
+    "react",
+    "example",
+    "sean.asia"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SeanLiangYoung/Sean-s-kennel.git"
+  },
+  "homepage": "https://sean.asia",
+  "engines" : {
+    "node" : "*"
   }
 }

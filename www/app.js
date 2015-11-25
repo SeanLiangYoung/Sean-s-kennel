@@ -4,9 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fs = require('fs');
 
 var app = express();
 
+var COMMENTS_FILE = path.join(__dirname, 'comments.json');
+
+// set Port of this server
+app.set('port', (process.env.PORT || 3000));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jsx');
@@ -22,10 +27,47 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 // app.use('/users/login', users.login);
+// app.use('/', express.static(path.join(__dirname, 'public')));
 
+app.get('/api/comments', function(req, res) {
+  fs.readFile(COMMENTS_FILE, function(err, data) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    res.setHeader('Cache-Control', 'no-cache');
+    res.json(JSON.parse(data));
+  });
+});
+
+app.post('/api/comments', function(req, res) {
+  fs.readFile(COMMENTS_FILE, function(err, data) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    var comments = JSON.parse(data);
+    // NOTE: In a real implementation, we would likely rely on a database or
+    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
+    // treat Date.now() as unique-enough for our purposes.
+    var newComment = {
+      id: Date.now(),
+      author: req.body.author,
+      text: req.body.text,
+    };
+    comments.push(newComment);
+    fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+      res.setHeader('Cache-Control', 'no-cache');
+      res.json(comments);
+    });
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -58,5 +100,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
+app.listen(app.get('port'), function() {
+  console.log('Server started: http://localhost:' + app.get('port') + '/');
+});
 
 module.exports = app;

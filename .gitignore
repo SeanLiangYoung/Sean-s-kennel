@@ -1,4 +1,6 @@
+*~
+.DS_Store
+.htaccess
 tmp/*
 error_log
-.htaccess
 www/node_modules
