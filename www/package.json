@@ -17,7 +17,12 @@
     "serve-favicon": "*",
     "node-jsx" : "*",
     "react" : "*",
-    "express-react-views" : "*"
+    "express-react-views" : "*",
+    "socket.io": "*",
+    "sprintf-js": "*",
+    "moment": "*",
+    "tinycolor": "*",
+    "mkdirp": "*"
   },
   "devDependencies": {},
   "author": "SeanLiang",
